@@ -15,8 +15,10 @@ void DualL298PMotorShield::init()
 // Define pinMode for the pins and set the frequency for timer1.
 
   pinMode(_M1DIR,OUTPUT);
+  pinMode(_M1DIR2,OUTPUT);
   pinMode(_M1PWM,OUTPUT);
   pinMode(_M2DIR,OUTPUT);
+  pinMode(_M1DIR2,OUTPUT);
   pinMode(_M2PWM,OUTPUT);
 
 }
@@ -35,11 +37,13 @@ void DualL298PMotorShield::setM1Speed(int speed)
   if (reverse)
   {
     digitalWrite(_M1DIR,LOW);
+    digitalWrite(_M1DIR2,HIGH);
     analogWrite(_M1PWM, speed);
   }
   else
   {
     digitalWrite(_M1DIR,HIGH);
+    digitalWrite(_M1DIR2,LOW);
     analogWrite(_M1PWM, speed);
   }    
 }
@@ -59,11 +63,13 @@ void DualL298PMotorShield::setM2Speed(int speed)
   if (reverse)
   {
     digitalWrite(_M2DIR,LOW);
+    digitalWrite(_M2DIR2,HIGH);
     analogWrite(_M2PWM, speed);
   }
   else
   {
     digitalWrite(_M2DIR,HIGH);
+    digitalWrite(_M2DIR,LOW);
     analogWrite(_M2PWM, speed);
   }
 }
