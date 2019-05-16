@@ -13,18 +13,20 @@ DualL298PMotorShield::DualL298PMotorShield()
 void DualL298PMotorShield::init()
 {
 // Define pinMode for the pins and set the frequency for timer1.
-
   pinMode(_M1DIR,OUTPUT);
   pinMode(_M1DIR2,OUTPUT);
   pinMode(_M1PWM,OUTPUT);
   pinMode(_M2DIR,OUTPUT);
-  pinMode(_M1DIR2,OUTPUT);
+  pinMode(_M2DIR2,OUTPUT);
   pinMode(_M2PWM,OUTPUT);
-
 }
 // Set speed for motor 1, speed is a number betwenn -400 and 400
 void DualL298PMotorShield::setM1Speed(int speed)
 {
+  if(speed == 0){
+    analogWrite(_M1PWM, speed);
+    return;
+  }
   unsigned char reverse = 0;
 
   if (speed < 0)
@@ -45,14 +47,17 @@ void DualL298PMotorShield::setM1Speed(int speed)
     digitalWrite(_M1DIR,HIGH);
     digitalWrite(_M1DIR2,LOW);
     analogWrite(_M1PWM, speed);
-  }    
+  }
 }
 
 // Set speed for motor 2, speed is a number betwenn -400 and 400
 void DualL298PMotorShield::setM2Speed(int speed)
 {
+  if(speed == 0){
+    analogWrite(_M2PWM, speed);
+    return;
+  }
   unsigned char reverse = 0;
-
   if (speed < 0)
   {
     speed = -speed;  // Make speed a positive quantity
@@ -62,16 +67,20 @@ void DualL298PMotorShield::setM2Speed(int speed)
     speed = 255;
   if (reverse)
   {
-    digitalWrite(_M2DIR,LOW);
-    digitalWrite(_M2DIR2,HIGH);
+    digitalWrite(_M2DIR,HIGH);
+    digitalWrite(_M2DIR2,LOW);
+    //analogWrite(_M2PWM, speed);
     analogWrite(_M2PWM, speed);
+    //Serial.print("R");
   }
   else
   {
-    digitalWrite(_M2DIR,HIGH);
     digitalWrite(_M2DIR,LOW);
+    digitalWrite(_M2DIR2,HIGH);
+    //analogWrite(_M2PWM, speed);
     analogWrite(_M2PWM, speed);
   }
+  //Serial.print("\n");
 }
 
 // Set speed for motor 1 and 2

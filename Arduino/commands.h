@@ -20,7 +20,8 @@
 #define ANALOG_WRITE   'x'
 #define LEFT            0
 #define RIGHT           1
+#define READ_PIDOUT    'f'
+#define READ_PIDIN     'i'
+#define DEBUG_SPEED    'n'
 
 #endif
-
-
