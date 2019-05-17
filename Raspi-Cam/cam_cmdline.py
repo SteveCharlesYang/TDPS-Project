@@ -12,7 +12,7 @@ kernel_size = 3
 
 dilate_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
 
-cap = cv2.VideoCapture(2)
+cap = cv2.VideoCapture(0)
 
 counter = 0
 
@@ -27,8 +27,6 @@ while True:
     src_processed = cv2.morphologyEx(src, cv2.MORPH_CLOSE, dilate_kernel, iterations=1)
     crop_img = []
     img_sum_av = []
-
-    cv2.imshow('frame2', src)
 
     if counter - 8 is 0:
         print("a")
