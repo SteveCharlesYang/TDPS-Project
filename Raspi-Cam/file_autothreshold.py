@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 import matplotlib.pyplot as plot
 import scipy.signal as sig
-from utils import calculate_center, calculate_error
+from utils import calculate_center, calculate_error, calculate_direction
 import test_files
 
 size_x = 860
@@ -15,7 +15,7 @@ kernel_size = 3
 
 dilate_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
 
-frame = cv2.imread(test_files.data_fc1)
+frame = cv2.imread(test_files.data_tlt1)
 frame = cv2.resize(frame, (size_x, size_y))
 
 threshold_list = []
@@ -54,6 +54,11 @@ for lowThreshold in range(0, 255, step_size):
                 min_error_lower = error_lower
                 min_error_lower_threshold = lowThreshold
     if display_graph is True:
+        center_upper = calculate_center(img_sum_av[0])
+        center_lower = calculate_center(img_sum_av[1])
+
+        direction_upper, direction_lower = calculate_direction([center_upper, center_lower], img_sum_av[0].size)
+
         mark_value = []
 
         plot.figure()
@@ -61,9 +66,11 @@ for lowThreshold in range(0, 255, step_size):
         plot.title("threshold = {}".format(lowThreshold))
         plot.imshow(src_processed)
         plot.subplot(3, 1, 2)
-        plot.plot(img_sum_av[0], "-D", markevery=[calculate_center(img_sum_av[0])])
+        plot.title("Direction = {}".format(direction_upper))
+        plot.plot(img_sum_av[0], "-D", markevery=[center_upper])
         plot.subplot(3, 1, 3)
-        plot.plot(img_sum_av[1], "-D", markevery=[calculate_center(img_sum_av[1])])
+        plot.title("Direction = {}".format(direction_lower))
+        plot.plot(img_sum_av[1], "-D", markevery=[center_lower])
         plot.subplots_adjust(top=0.85)
         plot.show()
 # print("Ideal threshold for upper side: {}".format(min_error_upper_threshold))

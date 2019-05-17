@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 import matplotlib.pyplot as plot
 import scipy.signal as sig
-from utils import calculate_center
+from utils import calculate_center, calculate_direction
 import test_files
 
 size_x = 860
@@ -31,6 +31,11 @@ for i in range(1, 3):
     crop_img.append(sliced_img)
     img_sum_av.append(sig.savgol_filter(np.sum(sliced_img, axis=0), 101, 3))
 
+center_upper = calculate_center(img_sum_av[0])
+center_lower = calculate_center(img_sum_av[1])
+
+direction_upper, direction_lower = calculate_direction([center_upper, center_lower], img_sum_av[0].size)
+
 mark_value = []
 
 plot.figure()
@@ -38,9 +43,11 @@ plot.imshow(src_processed)
 
 plot.figure()
 plot.subplot(2, 1, 1)
-plot.plot(img_sum_av[0], "-D", markevery=[calculate_center(img_sum_av[0])])
+plot.title("Direction = {}".format(direction_upper))
+plot.plot(img_sum_av[0], "-D", markevery=[center_upper])
 plot.subplot(2, 1, 2)
-plot.plot(img_sum_av[1], "-D", markevery=[calculate_center(img_sum_av[1])])
+plot.title("Direction = {}".format(direction_lower))
+plot.plot(img_sum_av[1], "-D", markevery=[center_lower])
 plot.show()
 
 cv2.waitKey(0)
