@@ -4,6 +4,9 @@ UESTC TDPS Project Source
 ## Technical Route
 
 ### ROS System (Raspberry Pi 3B+) 
+(/Raspi-ROS):
+- Main system
+
 (/Raspi\_AHRS):
 - Razor IMU  
 
@@ -13,7 +16,7 @@ UESTC TDPS Project Source
 (/Raspi-Cam):
 - Traditional camera  
 
-(NOT MY JOB!):
+(/OpenMV)(NOT MY JOB!):
 - OpenMV camera
 
 ### Arduino (Arduino UNO R3)
