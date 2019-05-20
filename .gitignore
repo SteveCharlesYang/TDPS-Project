@@ -1,2 +1,4 @@
 Raspi-Cam/.idea
 Raspi-Cam/__pycache__
+Raspi-Cam/*.pyc
+Raspi-ROS/*.pyc
