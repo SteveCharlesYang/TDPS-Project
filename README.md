@@ -4,7 +4,7 @@ UESTC TDPS Project Source
 
 ## Technical Route
 
-### ROS System (Raspberry Pi 3B+) 
+### ROS System (Raspberry Pi 3B+)
 
 (/Raspi-ROS):
 
